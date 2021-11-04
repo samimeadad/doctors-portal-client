@@ -1,12 +1,17 @@
+import { Box } from '@mui/material';
 import React from 'react';
-import Button from '@mui/material/Button';
+import AppointmentBanner from '../AppointmentBanner/AppointmentBanner';
+import Banner from '../Banner/Banner';
+import Services from '../Services/Services';
 
 const Home = () => {
+
     return (
-        <div>
-            <h2>Home Page</h2>
-            <Button variant="contained">Hello World</Button>
-        </div>
+        <Box sx={ { textAlign: 'center' } }>
+            <Banner></Banner>
+            <Services></Services>
+            <AppointmentBanner></AppointmentBanner>
+        </Box>
     );
 };
 
