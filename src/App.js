@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './Pages/Home/Home/Home';
 import ErrorPage from './Pages/ErrorPage/ErrorPage';
 import Navigation from './Pages/Shared/Navigation/Navigation';
+import Appointment from './Pages/Appointment/Appointment/Appointment';
 
 function App () {
   return (
@@ -15,6 +16,9 @@ function App () {
           </Route>
           <Route exact path="/home">
             <Home />
+          </Route>
+          <Route exact path="/appointment">
+            <Appointment></Appointment>
           </Route>
           <Route exact path="*">
             <ErrorPage />

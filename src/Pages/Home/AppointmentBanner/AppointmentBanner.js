@@ -20,7 +20,7 @@ const AppointmentBanner = () => {
                 <Grid item xs={ 12 } md={ 6 }>
                     <img style={ { width: '500px', height: '600px', marginTop: '-160px' } } src={ doctor } alt="" />
                 </Grid>
-                <Grid xs={ 12 } md={ 6 } sx={ { display: 'flex', justifyContent: 'flex-start', alignItems: 'center' } }>
+                <Grid item xs={ 12 } md={ 6 } sx={ { display: 'flex', justifyContent: 'flex-start', alignItems: 'center' } }>
                     <Box sx={ { textAlign: 'left', py: 6 } }>
                         <Typography variant="h6" sx={ { color: '#65ece2', mb: 4 } }>
                             Appointment
