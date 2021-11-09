@@ -95,7 +95,7 @@ const useFirebase = () => {
     }, [ auth ] )
 
     useEffect( () => {
-        fetch( `http://localhost:5001/users/${ user.email }` )
+        fetch( `https://salty-reef-03503.herokuapp.com/users/${ user.email }` )
             .then( res => res.json() )
             .then( data => setAdmin( data.admin ) )
     }, [ user.email ] )
@@ -112,7 +112,7 @@ const useFirebase = () => {
 
     const saveUserToDb = ( email, displayName, method ) => {
         const user = { email, displayName };
-        fetch( 'http://localhost:5001/users', {
+        fetch( 'https://salty-reef-03503.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'

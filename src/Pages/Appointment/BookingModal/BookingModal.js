@@ -41,7 +41,7 @@ const BookingModal = ( { openBooking, handleBookingClose, booking, date, setBook
             date: date.toLocaleDateString()
         }
         //send to the server
-        fetch( 'http://localhost:5001/appointments', {
+        fetch( 'https://salty-reef-03503.herokuapp.com/appointments', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

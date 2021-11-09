@@ -14,7 +14,7 @@ const MakeAdmin = () => {
     const handleAdminSubmit = e => {
         e.preventDefault();
         const user = { adminEmail };
-        fetch( 'http://localhost:5001/users/admin', {
+        fetch( 'https://salty-reef-03503.herokuapp.com/users/admin', {
             method: 'PUT',
             headers: {
                 'authorization': `Bearer ${ token }`,
