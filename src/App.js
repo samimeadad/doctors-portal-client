@@ -20,19 +20,19 @@ function App () {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/home">
+            <Route path="/home">
               <Home />
             </Route>
-            <PrivateRoute exact path="/appointment">
+            <PrivateRoute path="/appointment">
               <Appointment></Appointment>
             </PrivateRoute>
-            <PrivateRoute exact path="/dashboard">
+            <PrivateRoute path="/dashboard">
               <Dashboard></Dashboard>
             </PrivateRoute>
-            <Route exact path="/login">
+            <Route path="/login">
               <Login></Login>
             </Route>
-            <Route exact path="/register">
+            <Route path="/register">
               <Register></Register>
             </Route>
             <Route exact path="*">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeFirebaseAuthentication from "../Pages/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, updateProfile, getIdToken, signOut } from "firebase/auth";
 
 initializeFirebaseAuthentication();
 
@@ -9,6 +9,9 @@ const useFirebase = () => {
     const auth = getAuth();
     const [ isLoading, setIsLoading ] = useState( true );
     const [ authError, setAuthError ] = useState( '' );
+    const [ admin, setAdmin ] = useState( false );
+    const [ token, setToken ] = useState( '' );
+
     const googleProvider = new GoogleAuthProvider();
 
     const registerUser = ( email, password, name, history ) => {
@@ -18,6 +21,9 @@ const useFirebase = () => {
                 setAuthError( '' );
                 const newUser = { email, displayName: name };
                 setUser( newUser );
+
+                //save user information to the database
+                saveUserToDb( email, name, 'POST' );
 
                 //Send name to firebase after registration
                 updateProfile( auth.currentUser, {
@@ -58,21 +64,13 @@ const useFirebase = () => {
         setIsLoading( true );
         signInWithPopup( auth, googleProvider )
             .then( ( result ) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult( result );
-                const token = credential.accessToken;
-                // The signed-in user info.
                 const user = result.user;
-                // ...
+                saveUserToDb( user.email, user.displayName, 'PUT' );
+                const destination = location?.state?.from || '/';
+                history.replace( destination );
+                setAuthError( '' );
             } ).catch( ( error ) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError( error );
-                // ...
+                setAuthError( error.message );
             } )
             .finally( () => {
                 setIsLoading( false );
@@ -84,6 +82,10 @@ const useFirebase = () => {
         const unsubscribe = onAuthStateChanged( auth, ( user ) => {
             if ( user ) {
                 setUser( user );
+                getIdToken( user )
+                    .then( idToken => {
+                        setToken( idToken )
+                    } )
             } else {
                 setUser( {} )
             }
@@ -91,6 +93,12 @@ const useFirebase = () => {
         } );
         return () => unsubscribe;
     }, [ auth ] )
+
+    useEffect( () => {
+        fetch( `http://localhost:5001/users/${ user.email }` )
+            .then( res => res.json() )
+            .then( data => setAdmin( data.admin ) )
+    }, [ user.email ] )
 
     const logOut = () => {
         setIsLoading( true );
@@ -102,8 +110,22 @@ const useFirebase = () => {
             .finally( () => setIsLoading( false ) );
     }
 
+    const saveUserToDb = ( email, displayName, method ) => {
+        const user = { email, displayName };
+        fetch( 'http://localhost:5001/users', {
+            method: method,
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify( user )
+        } )
+            .then()
+    }
+
     return {
         user,
+        admin,
+        token,
         isLoading,
         authError,
         registerUser,

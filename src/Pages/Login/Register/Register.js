@@ -15,7 +15,6 @@ const Register = () => {
         const value = e.target.value;
         const newRegisterData = { ...registerData };
         newRegisterData[ field ] = value;
-        console.log( newRegisterData );
         setRegisterData( newRegisterData );
         e.preventDefault();
     }
