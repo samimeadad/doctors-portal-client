@@ -19,7 +19,7 @@ const Register = () => {
         e.preventDefault();
     }
 
-    const handleLoginFormSubmit = e => {
+    const handleRegisterFormSubmit = e => {
         if ( registerData.password !== registerData.passwordConfirm ) {
             alert( 'Password Not Matched' );
             return;
@@ -35,7 +35,7 @@ const Register = () => {
                     <Typography sx={ { m: 1 } } variant="h6" gutterBottom component="div">
                         Register
                     </Typography>
-                    { !isLoading && <form onSubmit={ handleLoginFormSubmit }>
+                    { !isLoading && <form onSubmit={ handleRegisterFormSubmit }>
                         <TextField
                             sx={ { width: 1, m: 1 } }
                             id="standard-basic"

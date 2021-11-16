@@ -54,8 +54,6 @@ function Dashboard ( props ) {
                         <Link to={ `${ url }/addDoctor` } style={ { textDecoration: 'none' } }><Button color='inherit'>Add Doctor</Button></Link>
                     </Box>
                 }
-
-
             </Box>
             <Divider />
             <List>

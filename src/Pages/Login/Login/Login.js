@@ -27,6 +27,7 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle( location, history );
     }
+
     return (
         <Container sx={ { my: 10 } }>
             <Grid container spacing={ 2 }>

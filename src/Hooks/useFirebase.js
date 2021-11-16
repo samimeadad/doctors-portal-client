@@ -112,6 +112,7 @@ const useFirebase = () => {
 
     const saveUserToDb = ( email, displayName, method ) => {
         const user = { email, displayName };
+        console.log( user );
         fetch( 'https://salty-reef-03503.herokuapp.com/users', {
             method: method,
             headers: {
