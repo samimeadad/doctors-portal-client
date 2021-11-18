@@ -14,7 +14,7 @@ const CheckOutForm = ( { appointment } ) => {
     const { user } = useAuth();
 
     useEffect( () => {
-        fetch( 'http://localhost:5002/create-payment-intent', {
+        fetch( 'https://salty-reef-03503.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

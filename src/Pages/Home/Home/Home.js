@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import AppointmentBanner from '../AppointmentBanner/AppointmentBanner';
 import Banner from '../Banner/Banner';
+import Doctors from '../Doctors/Doctors';
 import Services from '../Services/Services';
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
             <Banner></Banner>
             <Services></Services>
             <AppointmentBanner></AppointmentBanner>
+            <Doctors></Doctors>
         </Box>
     );
 };
