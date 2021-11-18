@@ -15,20 +15,13 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import DashboardHome from '../DashboardHome/DashboardHome';
 import { Button } from '@mui/material';
 
 import {
-    Switch,
-    Route,
-    Link,
-    useRouteMatch
+    Outlet,
+    Link
 } from "react-router-dom";
-import MakeAdmin from '../MakeAdmin/MakeAdmin';
-import AddDoctor from '../AddDoctor/AddDoctor';
 import useAuth from '../../../Hooks/useAuth';
-import AdminRoute from '../../Login/AdminRoute/AdminRoute';
-import Payment from '../Payment/Payment';
 
 
 const drawerWidth = 200;
@@ -36,7 +29,7 @@ const drawerWidth = 200;
 function Dashboard ( props ) {
     const { window } = props;
     const [ mobileOpen, setMobileOpen ] = React.useState( false );
-    let { path, url } = useRouteMatch();
+
     const { admin } = useAuth();
 
     const handleDrawerToggle = () => {
@@ -48,11 +41,11 @@ function Dashboard ( props ) {
             <Toolbar />
             <Box sx={ { display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' } }>
                 <Link to="/appointment" style={ { textDecoration: 'none' } }><Button color='inherit'>Appointment</Button></Link>
-                <Link to={ `${ url }` } style={ { textDecoration: 'none' } }><Button color='inherit'>Dashboard</Button></Link>
+                <Link to="/dashboard" style={ { textDecoration: 'none' } }><Button color='inherit'>Dashboard</Button></Link>
                 {
                     admin && <Box sx={ { display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' } }>
-                        <Link to={ `${ url }/makeAdmin` } style={ { textDecoration: 'none' } }><Button color='inherit'>Make Admin</Button></Link>
-                        <Link to={ `${ url }/addDoctor` } style={ { textDecoration: 'none' } }><Button color='inherit'>Add Doctor</Button></Link>
+                        <Link to="/dashboard/makeAdmin" style={ { textDecoration: 'none' } }><Button color='inherit'>Make Admin</Button></Link>
+                        <Link to="/dashboard/addDoctor" style={ { textDecoration: 'none' } }><Button color='inherit'>Add Doctor</Button></Link>
                     </Box>
                 }
             </Box>
@@ -135,20 +128,9 @@ function Dashboard ( props ) {
                 sx={ { flexGrow: 1, p: 3, width: { sm: `calc(100% - ${ drawerWidth }px)` } } }
             >
                 <Toolbar />
-                <Switch>
-                    <Route exact path={ path }>
-                        <DashboardHome />
-                    </Route>
-                    <Route path={ `${ path }/payment/:appointmentId` }>
-                        <Payment></Payment>
-                    </Route>
-                    <AdminRoute path={ `${ path }/makeAdmin` }>
-                        <MakeAdmin></MakeAdmin>
-                    </AdminRoute>
-                    <AdminRoute path={ `${ path }/addDoctor` }>
-                        <AddDoctor></AddDoctor>
-                    </AdminRoute>
-                </Switch>
+                <Outlet>
+
+                </Outlet>
             </Box>
         </Box>
     );
